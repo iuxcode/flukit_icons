@@ -24,15 +24,6 @@ class FluIcon extends StatefulWidget {
 }
 
 class _FluIconState extends State<FluIcon> {
-  late String iconString;
-
-  @override
-  void initState() {
-    iconString = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">${widget.icon.data}</svg>'
-      .replaceAll('stroke-width="1.5"', 'stroke-width="${widget.strokeWidth}"');
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) => Align( /// TODO add margin
     alignment: widget.alignment,
@@ -40,7 +31,7 @@ class _FluIconState extends State<FluIcon> {
       height: widget.size, width: widget.size,
       child: RepaintBoundary(
         child: SvgPicture.string(
-          iconString,
+          '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">${widget.icon.data}</svg>'.replaceAll('stroke-width="1.5"', 'stroke-width="${widget.strokeWidth}"'),
           height: widget.size, width: widget.size,
           color: widget.color ?? Colors.black,
         ),
