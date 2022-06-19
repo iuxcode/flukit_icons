@@ -45,10 +45,10 @@ class FluIconStyle {
     this.alignment = Alignment.center,
   });
 
-  FluIconStyle merge(FluIconStyle iconStyle) => FluIconStyle(
-    color: iconStyle.color ?? color,
-    size: iconStyle.size ?? size,
-    strokeWidth: iconStyle.strokeWidth ?? strokeWidth,
-    alignment: iconStyle.alignment ?? alignment
+  FluIconStyle merge(FluIconStyle? iconStyle) => FluIconStyle(
+    color: iconStyle?.color ?? color,
+    size: iconStyle?.size ?? size,
+    strokeWidth: iconStyle?.strokeWidth ?? strokeWidth,
+    alignment: iconStyle?.alignment ?? alignment
   );
 }
