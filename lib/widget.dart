@@ -2,40 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'model.dart';
 
-class FluIcon extends StatefulWidget {
+/// TODO add margin
+class FluIcon extends StatelessWidget {
   final FluIconModel icon;
-  final Color? color;
-  final double size, strokeWidth;
-  /// final EdgeInsets? margin;
-  final Alignment alignment;
+  final FluIconStyle? style;
 
   const FluIcon({
-    Key? key,
     required this.icon,
-    this.color,
-    /// this.margin,
-    this.size = 24,
-    this.strokeWidth = 1.5,
-    this.alignment = Alignment.center,
+    this.style,
+    Key? key,
   }) : super(key: key);
 
-  @override
-  State<FluIcon> createState() => _FluIconState();
-}
+  double get size => style?.size ?? 24;
 
-class _FluIconState extends State<FluIcon> {
   @override
-  Widget build(BuildContext context) => Align( /// TODO add margin
-    alignment: widget.alignment,
+  Widget build(BuildContext context) => Align(
+    alignment: style?.alignment ?? Alignment.center,
     child: SizedBox(
-      height: widget.size, width: widget.size,
+      height: size,
+      width: size,
       child: RepaintBoundary(
         child: SvgPicture.string(
-          '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">${widget.icon.data}</svg>'.replaceAll('stroke-width="1.5"', 'stroke-width="${widget.strokeWidth}"'),
-          height: widget.size, width: widget.size,
-          color: widget.color ?? Colors.black,
+          '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">${icon.data}</svg>'.replaceAll('stroke-width="1.5"', 'stroke-width="${style?.strokeWidth ?? 1.5}"'),
+          height: size, width: size,
+          color: style?.color ?? Colors.black,
         ),
       )
     )
+  );
+}
+
+class FluIconStyle {
+  Color? color;
+  double? size;
+  double? strokeWidth;
+  Alignment? alignment;
+
+  FluIconStyle({
+    this.color,
+    this.size = 24,
+    this.strokeWidth = 1.5,
+    this.alignment = Alignment.center,
+  });
+
+  FluIconStyle merge(FluIconStyle iconStyle) => FluIconStyle(
+    color: iconStyle.color ?? color,
+    size: iconStyle.size ?? size,
+    strokeWidth: iconStyle.strokeWidth ?? strokeWidth,
+    alignment: iconStyle.alignment ?? alignment
   );
 }
