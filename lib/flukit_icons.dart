@@ -8,52 +8,45 @@ import 'model.dart';
 export './icons.dart';
 export './model.dart';
 
+enum FluIconStyles { linear, broken, bulk, twotone }
+
 class FluIcon extends StatelessWidget {
   final FluIconModel icon;
-  final FluIconStyle? style;
+  final FluIconStyles style;
+  final Color? color;
+  final double size;
+  final double strokeWidth;
+  final Alignment alignment;
 
   const FluIcon({
-    required this.icon,
-    this.style,
     Key? key,
-  }) : super(key: key);
-
-  double get size => style?.size ?? 24;
-
-  @override
-  Widget build(BuildContext context) => Align(
-      alignment: style?.alignment ?? Alignment.center,
-      child: SizedBox(
-          height: size,
-          width: size,
-          child: RepaintBoundary(
-            child: SvgPicture.string(
-              '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">${icon.data}</svg>'
-                  .replaceAll('stroke-width="1.5"',
-                      'stroke-width="${style?.strokeWidth ?? 1.5}"'),
-              height: size,
-              width: size,
-              color: style?.color ?? Colors.black,
-            ),
-          )));
-}
-
-class FluIconStyle {
-  Color? color;
-  double? size;
-  double? strokeWidth;
-  Alignment? alignment;
-
-  FluIconStyle({
-    this.color,
+    required this.icon,
+    this.style = FluIconStyles.broken,
     this.size = 24,
     this.strokeWidth = 1.5,
     this.alignment = Alignment.center,
-  });
+    this.color,
+  }) : super(key: key);
 
-  FluIconStyle merge(FluIconStyle? iconStyle) => FluIconStyle(
-      color: iconStyle?.color ?? color,
-      size: iconStyle?.size ?? size,
-      strokeWidth: iconStyle?.strokeWidth ?? strokeWidth,
-      alignment: iconStyle?.alignment ?? alignment);
+  @override
+  Widget build(BuildContext context) {
+    String data = icon.datas[style.name];
+
+    return Align(
+      alignment: alignment,
+      child: SizedBox(
+        height: size,
+        width: size,
+        child: RepaintBoundary(
+          child: SvgPicture.string(
+            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">$data</svg>'
+                .replaceAll('stroke-width="1.5"', 'stroke-width="$strokeWidth"'),
+            height: size,
+            width: size,
+            color: color ?? Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
 }
