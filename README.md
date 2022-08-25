@@ -8,7 +8,7 @@
 
 </br>
 
-Special thanks to [**Unicons**](https://github.com/iconscout/unicons), [**vue-unicons**](https://github.com/antonreshetov/vue-unicons/blob/master/README.md) and [**Vuesax**]('') authors without whom this project would not have been carried out. 🙏
+Special thanks to [**Unicons**](https://github.com/iconscout/unicons), [**vue-unicons**](https://github.com/antonreshetov/vue-unicons/blob/master/README.md) and [**Iconsax**]('https://github.com/lusaxweb/iconsax') authors without whom this project would not have been carried out. 🙏
 
 </br>
 
