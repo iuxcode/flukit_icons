@@ -33,7 +33,7 @@ class IconModel {
 
   @override
   String toString() {
-    return '''FluIconModel(
+    return '''FluIconData(
       name: ${json.encode(name)},
       category: ${json.encode(category)},
       datas: ${json.encode(datas)},
@@ -46,7 +46,7 @@ class IconModel {
           String name = ReCase(isNum(e.name[0]) ? '${e.category}_${e.name}' : e.name)
               .camelCase;
 
-          return '%INDENT%static FluIconModel $name = ${e.toString()};';
+          return '%INDENT%static FluIconData $name = ${e.toString()};';
         })
         .toList()
         .join("\n");

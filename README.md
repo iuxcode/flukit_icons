@@ -1,39 +1,105 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# `Flukit_icons`
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+**3000+ Pixel-perfect svg unicons for your next flutter project.**
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+</br>
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+![flukit_icons]('')
 
-## Features
+</br>
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Special thanks to [**Unicons**](https://github.com/iconscout/unicons), [**vue-unicons**](https://github.com/antonreshetov/vue-unicons/blob/master/README.md) and [**Vuesax**]('') authors without whom this project would not have been carried out. 🙏
 
-## Getting started
+</br>
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Demo
+
+</br>
+
+You can get the latest gallery release [**here**](https://github.com/charles9904/flukit_icons_gallery/releases/tag/Flukit_flukit_icons).
+
+</br>
+
+## Installation
+
+</br>
+
+```yaml
+# Add flukit_icons as a dependency to your pubspec.yaml
+
+dependencies:
+
+  flukit_icons: 1.0.0
+```
+
+</br>
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+</br>
 
 ```dart
-const like = 'sample';
+import 'package:flukit_icons/flukit_icons.dart';
+import 'package:flutter/material.dart';
+
+class MyBeautifulApp extends StatelessWidget {
+  const MyBeautifulApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FluIcon(icon: FluIcons.githubUnicon),
+            FluIcon(icon: FluIcons.flash, style: FluIconStyles.bulk),
+          ],
+        ),
+      ),
+    );
+  }
+}
 ```
 
-## Additional information
+</br>
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## Options
+
+</br>
+
+|Name|Description|Type|default value|
+|:---|:---|:---|---:|
+|`icon` * |Icon to be displayed|[FluIconData]('')| -
+|`style` |Icon style. can be `linear`, `broken`, `twotone` or `bulk`. Some icons doesn't have all fourth style. Refer to the [gallery]('') to know more |[FluIconStyles]('')| FluIconStyles.twotone
+|`size`|Icon size|[double]('')|24|
+|`strokewidth`|Icon strokewidth|[double]('')|1.5|
+|`color` ?|icon color|[Color]('')|Colors.black|
+
+</br>
+
+Note: `*` marked options are required and `?` marked options are nullable.
+
+</br>
+
+## Contribution
+
+</br>
+
+`flukit_icons` is a fully open-source project, and contributions are welcome.Always happy if anyone wants to help to improve this package! 😊
+
+</br>
+
+## Feature requests
+
+</br>
+
+If you need any features Please open an issue so that we can discuss your feature request 🙏
+
+</br>
+
+---
+
+</br>
+
+Made with 💙 in Togo.

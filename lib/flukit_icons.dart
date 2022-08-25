@@ -11,7 +11,7 @@ export 'model.dart';
 enum FluIconStyles { linear, broken, bulk, twotone }
 
 class FluIcon extends StatelessWidget {
-  final FluIconModel icon;
+  final FluIconData icon;
   final FluIconStyles style;
   final Color? color;
   final double size;

@@ -1,7 +1,7 @@
 name: flukit_icons
-description: A new Flutter package project.
-version: 0.0.1
-homepage: null
+description: 1000+ Pixel-perfect svg icons for your next flutter project.
+version: 1.0.0
+homepage: https://github.com/charles9904/flukit_icons.git
 
 environment:
   sdk: ">=2.16.2 <3.0.0"

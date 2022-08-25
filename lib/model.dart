@@ -1,14 +1,14 @@
-class FluIconModel {
+class FluIconData {
   String name, category;
   Map<String, dynamic> datas;
 
-  FluIconModel({
+  FluIconData({
     required this.name,
     required this.category,
     required this.datas,
   });
 
-  factory FluIconModel.fromJson(Map<String, dynamic> json) => FluIconModel(
+  factory FluIconData.fromJson(Map<String, dynamic> json) => FluIconData(
         name: json['name'],
         category: json['category'],
         datas: json['datas'] as Map<String, dynamic>,
