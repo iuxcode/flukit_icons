@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:args/command_runner.dart';
+import 'package:flukit_icons_generator/icons/index.dart';
+import 'package:flukit_icons_generator/icons/unicons.dart';
+import 'package:flukit_icons_generator/templates/icons.dart';
 import 'package:path/path.dart' as path;
 
 const String cliName = 'flukit_icons_generator',
@@ -13,7 +16,7 @@ void main(List<String> args) async {
   try {
     await runner.run([cliName, ...args]);
   } on UsageException catch (error) {
-    print(error);
+    stdout.writeln(error);
     exit(1);
   }
 }
@@ -32,33 +35,23 @@ class GenerateCommand extends Command {
   @override
   Future<void> run() async {
     await getJsonFile().then((file) {
-      final data = json.decode(file.readAsStringSync());
-      final List<IconModel> icons = [];
-
-      for (var icon in data['icons']) {
-        icons.add(IconModel.fromJson(icon));
-      }
-
-      final List<String> iconsList = icons.map((e) {
-        String name = RegExp(r'^\d+$').hasMatch(e.name[0])
-            ? '${e.category}_${e.name}'
-            : e.name;
-
-        return '%INDENT%static FluIconModel $name = ${e.toString()};';
-      }).toList();
-      final code =
-          'import \'package:flutter/material.dart\';\nimport \'model.dart\';\n\n@immutable\nclass FluIcons {\n%INDENT%const FluIcons._();\n\n${iconsList.join("\n\n")}\n}';
-
       final outputFile = File(
         Directory.current.uri
             .resolve('../lib/icons.dart')
             .path
             .replaceFirst('/', ''),
       );
+      final data = json.decode(file.readAsStringSync());
+
+      List<IconModel> icons = (data['icons'] as List<dynamic>)
+              .map((e) => IconModel.fromJson(e))
+              .toList() +
+          Unicon.getIcons();
 
       if (!outputFile.existsSync()) outputFile.createSync();
-
-      outputFile.writeAsStringSync(code.replaceAll('%INDENT%', '  '));
+      outputFile.writeAsStringSync(basicFlukitIconsCode
+          .replaceAll('%CODE%', IconModel.generateCode(icons))
+          .replaceAll('%INDENT%', '  '));
 
       stdout.writeln('Done !');
     }).catchError((err) {
@@ -75,44 +68,5 @@ class GenerateCommand extends Command {
     }
 
     return Future.value(json);
-  }
-}
-
-class IconModel {
-  String name, category;
-  Map<String, String?> datas;
-
-  IconModel({
-    required this.name,
-    required this.category,
-    required this.datas,
-  });
-
-  factory IconModel.fromJson(Map<String, dynamic> json) => IconModel(
-        name: json['name'],
-        category: json['category'],
-        datas: {
-          'broken': json['datas']['broken']?.toString(),
-          'bulk': json['datas']['bulk']?.toString(),
-          'linear': json['datas']['linear']?.toString(),
-          'twotone': json['datas']['twotone']?.toString(),
-        },
-      );
-
-  Map<String, dynamic> toJson() {
-    return {
-      "name": name,
-      "category": category,
-      "datas": datas,
-    };
-  }
-
-  @override
-  String toString() {
-    return '''FluIconModel(
-      name: ${json.encode(name)},
-      category: ${json.encode(category)},
-      datas: ${json.encode(datas)},
-    )''';
   }
 }
