@@ -1,25 +1,27 @@
 import 'dart:convert';
-
 import 'package:recase/recase.dart';
 
 class IconModel {
   String name, category;
-  Map<String, String?> datas;
+  Map<String, String?> paths;
 
   IconModel({
     required this.name,
     required this.category,
-    required this.datas,
+    required this.paths,
   });
+
+  String get displayName =>
+      ReCase(isNum(name[0]) ? '${category}_$name' : name).camelCase;
 
   factory IconModel.fromJson(Map<String, dynamic> json) => IconModel(
         name: json['name'],
         category: json['category'],
-        datas: {
-          'broken': json['datas']['broken']?.toString(),
-          'bulk': json['datas']['bulk']?.toString(),
-          'linear': json['datas']['linear']?.toString(),
-          'twotone': json['datas']['twotone']?.toString(),
+        paths: {
+          'broken': json['paths']['broken']?.toString(),
+          'bulk': json['paths']['bulk']?.toString(),
+          'linear': json['paths']['linear']?.toString(),
+          'twotone': json['paths']['twotone']?.toString(),
         },
       );
 
@@ -27,7 +29,7 @@ class IconModel {
     return {
       "name": name,
       "category": category,
-      "datas": datas,
+      "paths": paths,
     };
   }
 
@@ -36,7 +38,7 @@ class IconModel {
     return '''FluIconData(
       name: ${json.encode(name)},
       category: ${json.encode(category)},
-      datas: ${json.encode(datas)},
+      paths: ${json.encode(paths)},
     )''';
   }
 

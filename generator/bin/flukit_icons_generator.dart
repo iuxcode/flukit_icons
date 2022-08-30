@@ -41,16 +41,54 @@ class GenerateCommand extends Command {
             .path
             .replaceFirst('/', ''),
       );
-      final data = json.decode(file.readAsStringSync());
 
-      List<IconModel> icons = (data['icons'] as List<dynamic>)
-              .map((e) => IconModel.fromJson(e))
-              .toList() +
-          Unicon.getIcons();
+      List<IconModel> icons =
+          (json.decode(file.readAsStringSync())['icons'] as List<dynamic>)
+                  .map((e) => IconModel.fromJson(e))
+                  .toList() +
+              Unicon.getIcons();
+
+      String nameGetterCode = extensionGetter
+          .replaceAll('%NAME%', 'name')
+          .replaceAll('%TYPE%', 'String')
+          .replaceAll(
+              '%CONTENT%',
+              icons
+                  .map((icon) =>
+                      '%INDENT%%INDENT%%INDENT%case FluIcons.${icon.displayName}:\n%INDENT%%INDENT%%INDENT%%INDENT%return \'${icon.name}\';')
+                  .toList()
+                  .join('\n\n'));
+      String categoryGetterCode = extensionGetter
+          .replaceAll('%NAME%', 'category')
+          .replaceAll('%TYPE%', 'String')
+          .replaceAll(
+              '%CONTENT%',
+              icons
+                  .map((icon) =>
+                      '%INDENT%%INDENT%%INDENT%case FluIcons.${icon.displayName}:\n%INDENT%%INDENT%%INDENT%%INDENT%return \'${icon.category}\';')
+                  .toList()
+                  .join('\n\n'));
+      String pathsGetterCode = extensionGetter
+          .replaceAll('%NAME%', 'paths')
+          .replaceAll('%TYPE%', 'Map<String, String?>')
+          .replaceAll(
+              '%CONTENT%',
+              icons
+                  .map((icon) =>
+                      '%INDENT%%INDENT%%INDENT%case FluIcons.${icon.displayName}:\n%INDENT%%INDENT%%INDENT%%INDENT%return ${json.encode(icon.paths)};')
+                  .toList()
+                  .join('\n\n'));
 
       if (!outputFile.existsSync()) outputFile.createSync();
-      outputFile.writeAsStringSync(basicFlukitIconsCode
+      /* outputFile.writeAsStringSync(fluIconsCode
           .replaceAll('%CODE%', IconModel.generateCode(icons))
+          .replaceAll('%INDENT%', '  ')); */
+
+      outputFile.writeAsStringSync(fluIconsCode
+          .replaceAll('%NAMES%',
+              icons.map((icon) => '%INDENT%${icon.displayName}').join(',\n'))
+          .replaceAll('%DATA%',
+              [nameGetterCode, categoryGetterCode, pathsGetterCode].join('\n\n'))
           .replaceAll('%INDENT%', '  '));
 
       stdout.writeln('Done !');

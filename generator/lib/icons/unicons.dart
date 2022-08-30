@@ -17,7 +17,7 @@ class Unicon {
     return IconModel(
       name: _name.replaceAll('-', '_'),
       category: 'unicon',
-      datas: {
+      paths: {
         "linear": style == 'line' ? path : null,
         "bulk": style == 'monochrome' ? path : null,
         "broken": null,
@@ -41,10 +41,10 @@ class Unicon {
         IconModel existingIcon =
             icons.singleWhere((element) => element.name == icon.name);
 
-        existingIcon.datas["linear"] =
-            icon.datas["linear"] ?? existingIcon.datas["linear"];
-        existingIcon.datas["bulk"] =
-            icon.datas["bulk"] ?? existingIcon.datas["bulk"];
+        existingIcon.paths["linear"] =
+            icon.paths["linear"] ?? existingIcon.paths["linear"];
+        existingIcon.paths["bulk"] =
+            icon.paths["bulk"] ?? existingIcon.paths["bulk"];
       }
     });
 
