@@ -71,12 +71,13 @@ class FluIcon extends StatelessWidget {
       margin: margin,
       child: RepaintBoundary(
         child: SvgPicture.string(
-          '<svg width="24" height="24" viewBox="0 0 24 24" ${isUnicon ? '' : 'fill="none"'} xmlns="http://www.w3.org/2000/svg">${isUnicon ? '<g>%data%</g>' : '%data%'}</svg>'
+          '<svg width="$size" height="$size" viewBox="0 0 24 24" ${isUnicon ? '' : 'fill="none"'} xmlns="http://www.w3.org/2000/svg">${isUnicon ? '<g>%data%</g>' : '%data%'}</svg>'
               .replaceAll('%data%', path ?? '')
               .replaceAll('stroke-width="1.5"', 'stroke-width="$strokewidth"'),
           height: size,
           width: size,
           color: color ?? Colors.black,
+          fit: BoxFit.contain,
         ),
       ),
     );
