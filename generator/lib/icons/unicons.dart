@@ -1,7 +1,6 @@
 import 'package:flukit_icons_generator/icons/index.dart';
 
 /// TODO: add categories
-
 class Unicon {
   String name, style, path;
 
@@ -12,10 +11,10 @@ class Unicon {
   });
 
   IconModel toFluIcon() {
-    String _name = name + (isNum(name[0]) ? '' : '_unicon');
+    String newName = name + (isNum(name[0]) ? '' : '_unicon');
 
     return IconModel(
-      name: _name.replaceAll('-', '_'),
+      name: newName.replaceAll('-', '_'),
       category: 'unicon',
       paths: {
         "linear": style == 'line' ? path : null,
@@ -6265,7 +6264,8 @@ Map<String, Unicon> unicons = {
   "uniCircleMonochrome": Unicon(
       name: 'circle',
       style: 'monochrome',
-      path: '<circle cx="12" cy="12" r="10" class="uim-primary" fill-opacity="1"/>'),
+      path:
+          '<circle cx="12" cy="12" r="10" class="uim-primary" fill-opacity="1"/>'),
   "uniCircleLayerMonochrome": Unicon(
       name: 'circle-layer',
       style: 'monochrome',
@@ -7044,7 +7044,8 @@ Map<String, Unicon> unicons = {
   "uniSquareMonochrome": Unicon(
       name: 'square',
       style: 'monochrome',
-      path: '<rect width="20" height="20" x="2" y="2" class="uim-primary" rx="1"/>'),
+      path:
+          '<rect width="20" height="20" x="2" y="2" class="uim-primary" rx="1"/>'),
   "uniSquareFullMonochrome": Unicon(
       name: 'square-full',
       style: 'monochrome',
@@ -7053,7 +7054,8 @@ Map<String, Unicon> unicons = {
   "uniSqureShapeMonochrome": Unicon(
       name: 'squre-shape',
       style: 'monochrome',
-      path: '<rect width="20" height="20" x="2" y="2" class="uim-primary" rx="5"/>'),
+      path:
+          '<rect width="20" height="20" x="2" y="2" class="uim-primary" rx="5"/>'),
   "uniStarMonochrome": Unicon(
       name: 'star',
       style: 'monochrome',

@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'icons.dart';
-// import 'model.dart';
 
 export 'icons.dart';
-// export 'model.dart';
 
 enum FluIconStyles { linear, broken, bulk, twotone }
 
@@ -28,40 +26,43 @@ enum FluIconStyles { linear, broken, bulk, twotone }
 */
 
 class FluIcon extends StatelessWidget {
-  final FluIcons icon;
-  final FluIconStyles style;
-  final Color? color;
-  final double size;
-  final double strokewidth;
-  final Alignment alignment;
-  final EdgeInsets margin;
+  const FluIcon(
+    this.icon, {
+    Key? key,
+    this.style = FluIconStyles.twotone,
+    this.size = 24,
+    this.strokeWidth = 1.5,
+    this.alignment = Alignment.center,
+    this.color,
+    this.margin = EdgeInsets.zero,
+  }) : super(key: key);
 
-  const FluIcon(this.icon,
-      {Key? key,
-      this.style = FluIconStyles.twotone,
-      this.size = 24,
-      this.strokewidth = 1.5,
-      this.alignment = Alignment.center,
-      this.color,
-      this.margin = EdgeInsets.zero})
-      : super(key: key);
+  final Alignment alignment;
+  final Color? color;
+  final FluIcons icon;
+  final EdgeInsets margin;
+  final double size;
+  final double strokeWidth;
+  final FluIconStyles style;
 
   @override
   Widget build(BuildContext context) {
     bool isUnicon = icon.category.toLowerCase() == 'unicon';
-    FluIconStyles _style = style;
+    FluIconStyles iconStyle = style;
 
     if (isUnicon &&
-        (style == FluIconStyles.broken || style == FluIconStyles.twotone)) {
-      _style = icon.paths[FluIconStyles.linear.name] != null
+        (iconStyle == FluIconStyles.broken ||
+            iconStyle == FluIconStyles.twotone)) {
+      iconStyle = icon.paths[FluIconStyles.linear.name] != null
           ? FluIconStyles.linear
           : FluIconStyles.bulk;
     }
 
-    String? path = icon.paths[_style.name];
+    String? path = icon.paths[iconStyle.name];
 
     if (path == null) {
-      print('Error: Style ${_style.name} doesn\'t exist for icon ${icon.name}');
+      print(
+          'Error: Style ${iconStyle.name} doesn\'t exist for icon ${icon.name}');
     }
 
     return Container(
@@ -73,10 +74,10 @@ class FluIcon extends StatelessWidget {
         child: SvgPicture.string(
           '<svg width="$size" height="$size" viewBox="0 0 24 24" ${isUnicon ? '' : 'fill="none"'} xmlns="http://www.w3.org/2000/svg">${isUnicon ? '<g>%data%</g>' : '%data%'}</svg>'
               .replaceAll('%data%', path ?? '')
-              .replaceAll('stroke-width="1.5"', 'stroke-width="$strokewidth"'),
+              .replaceAll('stroke-width="1.5"', 'stroke-width="$strokeWidth"'),
           height: size,
           width: size,
-          color: color ?? Colors.black,
+          color: color ?? Colors.black, // TODO: Remove me!
           fit: BoxFit.contain,
         ),
       ),

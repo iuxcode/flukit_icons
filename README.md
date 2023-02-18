@@ -28,8 +28,9 @@ You can get the latest gallery release [**here**](https://github.com/charles9904
 # Add flukit_icons as a dependency to your pubspec.yaml
 
 dependencies:
-
-  flukit_icons: 1.0.0
+  flukit_icons:
+    git:
+      url: https://github.com/charles9904/flukit_icons.git
 ```
 
 </br>
