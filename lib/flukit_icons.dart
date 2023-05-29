@@ -77,7 +77,7 @@ class FluIcon extends StatelessWidget {
               .replaceAll('stroke-width="1.5"', 'stroke-width="$strokeWidth"'),
           height: size,
           width: size,
-          color: color ?? Colors.black, // TODO: Remove me!
+          color: color ?? Theme.of(context).colorScheme.onBackground, // TODO: Remove me!
           fit: BoxFit.contain,
         ),
       ),
